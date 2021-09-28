@@ -26,7 +26,8 @@ First, create a postgreSql database using this command:
 `createdb -h localhost -p 5432 -U postgres recipedb`
 
 in `application.properties` file, search for `spring.jpa.hibernate.ddl-auto` and set it to `create-drop` or `update` for initializing application.
-For the production environment, this line should be set to `validate`
+For the production environment, this line should be set to `validate`.
+Also, the default user/pass of database is test/test which can be changed in `application.properties` file
 
 ### Tests
 A few unit tests to show you my ability to write spring unit tests
