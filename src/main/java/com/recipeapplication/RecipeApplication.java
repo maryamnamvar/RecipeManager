@@ -31,9 +31,6 @@ public class RecipeApplication {
         SpringApplication.run(RecipeApplication.class, args);
     }
 
-    /**
-     * Pre-load the system with employees and items.
-     */
     public @PostConstruct
     void init() {
         if (recipeRepository.count() == 0) {
@@ -47,10 +44,7 @@ public class RecipeApplication {
 
             userRepository.save(adminUser);
         }
-        /**
-         * Due to method-level protections on {@link example.company.ItemRepository}, the security context must be loaded
-         * with an authentication token containing the necessary privileges.
-         */
+        
         SecurityUtils.runAs("admin", "admin", "ROLE_ADMIN");
 
         SecurityContextHolder.clearContext();
