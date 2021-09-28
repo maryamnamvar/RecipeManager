@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
+    <title>Recipe Manager Application</title>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Recipe Manager Application</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+
+        <div sec:authorize="isAnonymous()" class="form-inline my-2 my-lg-0">
+            <a class="btn btn-outline-success my-2 mr-2 my-sm-0" th:href="@{/login}">Login</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row py-2">
+        <div class="col-12">
+            <form th:action="@{/recipes/add}" method="post" th:object="${recipe}">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="Name">
+                    <small class="form-text text-danger" th:each="err : ${#fields.errors('name')}" th:text="${err}">Validation
+                        error</small>
+                </div>
+                <div class="form-group">
+                    <label for="cookingInstruction">Cooking Instructions</label>
+                    <input type="text" id="cookingInstruction" th:field="*{cookingInstruction}" class="form-control"
+                           placeholder="Cooking Instruction">
+                    <small class="form-text text-danger" th:each="err : ${#fields.errors('cookingInstruction')}"
+                           th:text="${err}">Validation
+                        error</small>
+                </div>
+                <div class="form-group">
+                    <label for="numberOfPeople">Number of People</label>
+                    <input type="text" id="numberOfPeople" th:field="*{numberOfPeople}" class="form-control"
+                           placeholder="Number of People">
+                    <small class="form-text text-danger" th:each="err : ${#fields.errors('numberOfPeople')}"
+                           th:text="${err}">Validation
+                        error</small>
+                </div>
+                <div class="form-group">
+                    <label for="vegetarian">Vegetarian</label>
+                    <input type="checkbox" id="vegetarian" th:field="*{vegetarian}" class="form-control"
+                           placeholder="Vegetarian">
+                    <small class="form-text text-danger" th:each="err : ${#fields.errors('vegetarian')}"
+                           th:text="${err}">Validation
+                        error</small>
+                </div>
+                <div class="form-group">
+                    <label for="ingredients">Ingredients (separate them with comma)</label>
+                    <input type="text" id="ingredients" th:field="*{ingredients}" class="form-control">
+                    <small class="form-text text-danger" th:each="err : ${#fields.errors('ingredients')}"
+                           th:text="${err}">Validation
+                        error</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Recipe</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"-->
+<!--        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"-->
+<!--        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"-->
+<!--        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"-->
+<!--        crossorigin="anonymous"></script>-->
+</body>
+</html>

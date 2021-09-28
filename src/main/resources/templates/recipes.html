@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Recipe Manager Application</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Recipe Manager Application</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+
+        <form sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
+            <button class="btn btn-outline-success my-2 my-sm-0">Logout</button>
+        </form>
+    </div>
+</nav>
+
+<div class="container">
+    <form method="get" th:action="@{/recipes/add}">
+        <div class="input-group mb-3 mt-3">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Add Recipe</button>
+            </div>
+        </div>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Recipe Name</th>
+            <th scope="col">Cooking Instruction</th>
+            <th scope="col">Number of People</th>
+            <th scope="col">Vegetarian</th>
+            <th scope="col">Ingredients</th>
+            <th scope="col">Creation Date</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="recipe : ${recipes}">
+            <th scope="row" th:text="${recipe.id}">1</th>
+            <td th:text="${recipe.name}"></td>
+            <td th:text="${recipe.cookingInstruction}"></td>
+            <td th:text="${recipe.numberOfPeople}"></td>
+            <td th:text="${recipe.vegetarian}"></td>
+            <td th:text="${recipe.ingredients}"></td>
+            <td th:text="${#temporals.formatISO(recipe.creationDate)}"></td>
+            <td>
+                <form th:action="@{recipes/delete/{id}(id = ${recipe.id})}" th:method="delete">
+                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                </form>
+                <form th:action="@{recipes/update/{id}(id = ${recipe.id})}" th:method="get">
+                    <button type="submit" class="btn btn-outline-info">Update</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
